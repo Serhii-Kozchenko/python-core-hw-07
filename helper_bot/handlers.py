@@ -1,4 +1,6 @@
 from decorators import input_error
+from classes import AddressBook, Record
+
 
 @ input_error
 def parse_input(user_input):
@@ -6,47 +8,64 @@ def parse_input(user_input):
     cmd = cmd.strip().lower()
     return cmd, *args
 
-@ input_error
-def add_contact(args, contacts):
-    name, phone = args
-    if name in contacts:
-        return "Contact has already been added"
-    
-    else:
-        contacts[name] = phone
-        return "Contact added."
 
 @ input_error
-def change_phone(args, contacts):
+def add_contact(args, book: AddressBook):
     name, phone = args
-    if name not in contacts:
-        raise KeyError
-    else:
-         contacts[name] = phone
+    record = book.find(name)
+
+    if not record:
+        record = Record(name)
+    record.add_phone(phone)
+
+    book.add_record(record)
+
+    return "Contact added."
+
+
+@ input_error
+def change_phone(args, book):
+    name, old_phone, new_phone = args
+    record = book.find(name)
+    if not record:
+        return "Contact not found"
+
+    record.edit_phone(old_phone, new_phone)
 
     return "Contact changed"
 
-@ input_error
-def show_phone(args, contacts):
-    name, *_ = args
-    result = contacts[name]
-    return result
 
 @ input_error
-def delete_phone(args, contacts):
+def show_phone(args, book):
+    name = args[0]
+    record = book.find(name)
+    if not record:
+        return "Contact not found"
+    return '; '.join(str(p) for p in record.phones)
+
+
+@ input_error
+def delete_record(args, book:AddressBook):
     name, *_ = args
-    del contacts[name]
+    record = book.find(name)
+    if not record:
+        return "Contact not found"
+    
+    book.delete(name)
 
     return "Contact deleted"
 
-@ input_error
-def clear_contacts(contacts):
 
-    contacts.clear()
+@ input_error
+def clear_contacts(book):
+
+    book.clear()
     return "Contacts clear"
 
+
 @ input_error
-def show_all(contacts):
-    if not contacts:
-        return "Contacts is empty"
-    return f"Contacts: {contacts}"
+def show_all(book:AddressBook):
+    if not book:
+        return "Book is empty"
+   
+    return book

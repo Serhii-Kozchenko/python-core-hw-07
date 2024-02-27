@@ -9,7 +9,7 @@ def input_error(func):
             return "There are no contact with this name."
 
         except ValueError:
-            return "Give me name and phone please."
+            return "Give me name and phone please with correct value"
 
         except IndexError:
             return "Index error"

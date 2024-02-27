@@ -69,17 +69,9 @@ class AddressBook(UserDict):
     def delete(self, name):
         if name in self.data:
             del self.data[name]
+    
+    def __str__(self):
+        return "\n".join(str(record) for record in self.data.values()) 
 
 
 
-john_record = Record("John")
-john_record.add_phone("1234567890")
-john_record.add_phone("5555555555")
-
-print(john_record)
-john_record.edit_phone("5555555555", "5555555550")
-print(john_record)
-john_record.edit_phone("5555555550", "5555555551")
-print(john_record)
-john_record.edit_phone("1234567890", "5555555553")
-print(john_record)
