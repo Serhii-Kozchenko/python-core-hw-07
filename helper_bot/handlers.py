@@ -15,13 +15,9 @@ def add_birthday(args, book: AddressBook):
     record = book.find(name)
 
     if not record:
-        record = Record(name)
-    elif birthday:
-        return "Contact already have a birthday"
+        return "There are no record with this name"
+
     record.add_birthday(birthday)
-
-    book.add_record(record)
-
     return "Birthday added."
 
 
