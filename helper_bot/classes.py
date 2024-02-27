@@ -1,5 +1,5 @@
 from collections import UserDict
-
+from datetime import datetime, timedelta
 
 class Field:
     def __init__(self, value):
@@ -29,6 +29,10 @@ class Record(Field):
 
         self.name = Name(name)
         self.phones = []
+        self.birthday = None
+
+    def add_birthday(self, birthday:str):
+        self.birthday = Birthday(birthday)
 
     def add_phone(self, phone):
         self.phones.append(Phone(phone))
@@ -38,6 +42,8 @@ class Record(Field):
             if i.value == phone:
                 return i
         return None
+    
+
 
     def remove_phone(self, phone):
         for i in self.phones:
@@ -49,12 +55,22 @@ class Record(Field):
             if self.phones[i].value == phone:
                 self.phones[i] = Phone(new_phone)
                 return
-        raise ValueError("There are no this phone")
+        raise ValueError
          
           
 
     def __str__(self):
-        return f"Contact name: {self.name}, phones: {'; '.join(str(p) for p in self.phones)}"
+        return f"Contact name: {self.name}, phones: {'; '.join(str(p) for p in self.phones)}, birthday: {str(self.birthday)}"
+ 
+    
+class Birthday(Field):
+    def __init__(self, value):
+        try:
+            self.value = datetime.strptime(value, "%d.%m.%Y").date()
+        except:
+            raise ValueError
+    
+        
 
 
 class AddressBook(UserDict):
@@ -69,6 +85,14 @@ class AddressBook(UserDict):
     def delete(self, name):
         if name in self.data:
             del self.data[name]
+
+    
+    
+  
+        
+
+
+
     
     def __str__(self):
         return "\n".join(str(record) for record in self.data.values()) 

@@ -1,4 +1,4 @@
-from handlers import parse_input, add_contact, show_all, change_phone, show_phone, delete_record, clear_contacts
+from handlers import parse_input, add_contact, show_all, change_phone, show_phone, delete_record, clear_contacts, birthdays, add_birthday, show_birthday
 from classes import AddressBook, Record
 
 def main():
@@ -32,8 +32,17 @@ def main():
         elif command == "clear":
             print(clear_contacts(book))
 
+        elif command == "birthdays":
+            print(birthdays(book))
 
-        else:
+        elif command == "add_birthday":
+            print(add_birthday(args, book))
+
+        elif command == "show_birthday":
+            print(show_birthday(args, book))
+
+
+        else: 
             print("Invalid command.")
        
 if __name__ == "__main__":
