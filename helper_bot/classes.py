@@ -34,7 +34,10 @@ class Record(Field):
         self.birthday = None
 
     def add_birthday(self, birthday: str):
-        self.birthday = Birthday(birthday)
+        if not self.birthday: 
+            self.birthday = Birthday(birthday)
+        else:
+            print("Birthday already exists for this contact.")
 
     def add_phone(self, phone):
         self.phones.append(Phone(phone))

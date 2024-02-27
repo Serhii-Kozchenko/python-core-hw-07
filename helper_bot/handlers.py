@@ -28,10 +28,10 @@ def add_contact(args, book: AddressBook):
 
     if not record:
         record = Record(name)
+        book.add_record(record)
     record.add_phone(phone)
 
-    book.add_record(record)
-
+   
     return "Contact added."
 
 
