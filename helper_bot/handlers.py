@@ -97,5 +97,5 @@ def show_birthday(args, book: AddressBook):
 
 
 @ input_error
-def birthdays(args, book: AddressBook):
+def birthdays(book: AddressBook):
     return book.get_upcoming_birthdays()

@@ -35,10 +35,10 @@ def main():
         elif command == "birthdays":
             print(birthdays(book))
 
-        elif command == "add_birthday":
+        elif command == "add-birthday":
             print(add_birthday(args, book))
 
-        elif command == "show_birthday":
+        elif command == "show-birthday":
             print(show_birthday(args, book))
 
 
